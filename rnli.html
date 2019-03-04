@@ -1,0 +1,913 @@
+<!doctype html />
+<html manifest="cache.manifest" lang="en-GB">
+<head>
+	<meta charset="UTF-8" />
+	
+	<title>RNLI Check Cards</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<meta name="theme-color" content="#002663" />
+	<meta name="msapplication-navbutton-color" content="#002663" />
+
+  <link rel="stylesheet" href="w3.css" />
+  <link rel="stylesheet" href="index.css" />
+	
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  
+	<link rel="manifest" href="manifest.json" />
+
+	<style>
+		body, h1 , h4, h3, h4, h5, h6, .w3-wide {
+			font-family: Verdana, sans-serif;
+			line-height: 1.2;
+			text-align: justify;
+	 	}
+	 
+		body {
+			padding-top: 20px;
+ 			margin:auto;
+		}
+	 
+		hr {
+			color: #019692;
+			border-color: #019692;
+			width: 80%;
+			margin: auto;
+    }
+
+    .box_left {
+      float: left;
+      margin: 0px;
+      margin-bottom: 8px;
+      margin-right: 4px;
+      width: 48%;
+    }
+
+    .box_right {
+      float: right;
+      margin: 0px;
+      margin-bottom: 8px;
+      margin-left: 4px;
+      width: 48%;
+    }
+
+    .notes {
+      text-align: justify;
+    }
+
+    /*ICONS SPRITE DEFINITIONS*/
+		.ics, .ts {
+			background-size:200%;
+			background-image: url('img/ics.png');
+		}
+		.ics {
+			height: 25px;
+			width: 25px;
+		}
+		.icimg/ts {
+			height: 20px;
+			width: 20px;
+		}	
+		.m {background-position: 0% 0%;}
+		.s {background-position: 100% 100%;}
+		.v {background-position: 100% 0%;}
+		.x {background-position: 0% 100%;}
+		
+    .w3-sidebar{
+			color: #FFF;
+			z-index:3;
+			top:0px;
+			display: block;
+ 		}
+		.w3-sidebar::-webkit-scrollbar {width: 6px;} 
+		.w3-sidebar::-webkit-scrollbar-thumb {background: #019692;}	
+		.w3-sidebar a {
+			font-family: "Roboto", Verdana, sans-serif;
+    }
+    
+		/*ANIMATIONS FOR SLIDER*/
+		.slide-in {
+			animation: slide-in 0.5s forwards;
+			-webkit-animation: slide-in 0.5s forwards;
+		}
+		.slide-out {
+			animation: slide-out 0.5s forwards;
+			-webkit-animation: slide-out 0.5s forwards;
+		}
+		@keyframes slide-in {
+			100% { transform: translateX(0%); }
+		}
+		@-webkit-keyframes slide-in {
+			100% { -webkit-transform: translateX(0%); }
+		}
+		@keyframes slide-out {
+			0% { transform: translateX(0%); }
+			100% { transform: translateX(-100%); }
+		}
+		@-webkit-keyframes slide-out {
+			0% { -webkit-transform: translateX(0%); }
+			100% { -webkit-transform: translateX(-100%); }
+    }
+    /*PHONES*/@media (max-width:600px){
+			.w3-sidebar {
+				transform: translateX(-100%);
+				-webkit-transform: translateX(-100%);
+				display: block !important;
+			}
+			.main{
+				max-width: 100%;
+			}
+    }
+    /*TABLEimg/ts*/@media (max-width:992px) and (min-width:601px){
+			.w3-sidebar {
+				display: block !important;
+				width: 200px;
+			}
+			.main{
+				margin-left: 200px !important;
+			}
+		}
+		/*COMPUTERS*/@media (min-width:993px){
+			.w3-sidebar {
+				width: 300px;
+				/*padding: 16px;
+				position: relative;*/
+			}
+			.main {
+				padding: 16px;
+ 				margin-left: 300px !important;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+<!--SIDEBAR-->
+<div class="w3-sidebar w3-bar-block w3-rnli-blue w3-collapse" style="z-index:3;" id="mySidebar">
+	<!--SIDEBAR HEADER - PHONES-->
+	<header class="w3-container w3-hide-large w3-hide-medium" style="padding-top: 17px; padding-bottom: 17px;">
+		<img alt="RNLI Logo" src="img/rnli.png" style="height: 28px;" />
+	    <strong class="w3-wide" style="font-size: 20px;">RNLI</strong>
+		<a href="javascript:void(0)" class="w3-opennav w3-right  w3-hide-large" onclick="w3_change('out')"><img alt="Close menu" class="ics x" src="img/ts.png" /></a>
+    </header>
+
+	<hr />
+
+	<nav class="w3-large" style="font-weight:bold;">
+		<a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="openTab(this, 'home')">New Casualty</a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="openTab(this, 'uncontious_breathing')">Uncontious Breathing</a>
+		<a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="openTab(this, 'resuscitation')">Resuscitation</a>
+		<a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="openTab(this, 'external_bleeding')">Bleeding - External</a>
+		<a href="javascript:void(0)" class="w3-bar-item w3-button" onclick="openTab(this, 'internal_bleeding')">Bleeding - Internal</a>
+    <a href="javascript:void(0)" onclick="AccFunction('injuriesAcc')" class="w3-bar-item w3-button">Injury <img alt="arrow down" class="ics v" src="img/ts.png" /></a>
+		<div id="injuriesAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+			<a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'fractures')">Fractures</a>
+			<a href="#houses" class="w3-bar-item w3-button" onclick="openTab(this, 'chest_injuries')">Chest</a>
+			<a href="#access_codes" class="w3-bar-item w3-button" onclick="openTab(this, 'face_burns')">Burns - Face</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'body_burns')">Burns - Body</a>
+      <a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'lying_spine')">Spine - Lying</a>
+      <a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'standing_spine')">Spine - Standing</a>
+      <a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'lying_head')">Head - Lying</a>
+      <a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'standing_head')">Head - Standing</a>
+		</div>
+		<a href="javascript:void(0)" onclick="AccFunction('illnessAcc')" class="w3-bar-item w3-button">Illness <img alt="arrow down" class="ics v" src="img/ts.png" /></a>
+		<div id="illnessAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+			<a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'castle')">Convulsions</a>
+			<a href="#houses" class="w3-bar-item w3-button" onclick="openTab(this, 'houses')">Stings & Bites</a>
+			<a href="#access_codes" class="w3-bar-item w3-button" onclick="openTab(this, 'access_codes')">Chest Pain</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Asthma</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Allergies</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Diabetes</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Diving Related</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Seasickness</a>
+      <a href="#seafront" class="w3-bar-item w3-button" onclick="openTab(this, 'seafront')">Unknown Illness</a>
+		</div>
+		<a href="javascript:void(0)" onclick="AccFunction('heatAcc')" class="w3-bar-item w3-button">Heat/Water <img alt="arrow down" class="ics v" src="img/ts.png" /></a>
+		<div id="heatAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+			<a href="#castle" class="w3-bar-item w3-button" onclick="openTab(this, 'castle')">Drowning</a>
+			<a href="#houses" class="w3-bar-item w3-button" onclick="openTab(this, 'houses')">Hypothermia</a>
+			<a href="#access_codes" class="w3-bar-item w3-button" onclick="openTab(this, 'access_codes')">Heat Strokes</a>
+		</div>
+	</nav>
+			
+	<hr	/>
+	
+	<footer>
+		<a href="tel:112" class="w3-bar-item w3-button w3-padding">Help!</a>
+		<a href="#footer" class="w3-bar-item w3-button w3-padding">RNLI Website</a>
+	</footer>
+</div>
+
+<!--HEADER - PHONES ONLY-->
+<header class="w3-container w3-top w3-hide-medium w3-hide-large w3-rnli-blue w3-xlarge w3-padding-16" class="main_header">
+	<a href="javascript:void(0)" class="w3-opennav" onclick="w3_change('in')" style="margin-right: 24px;"><img alt="menu" class="ics m" src="img/ts.png" /></a>
+	<strong class="w3-wide">RNLI Check Cards</strong>
+</header>
+
+<!--DIV TO CLOSE MENU CLICKING OUTSIDE-->
+<div class="w3-overlay w3-hide-large" onclick="w3_change('out')" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!--MAIN CONTENT-->
+<main class="w3-main w3-center main" id="main_cont">
+
+	<!--SPACER FOR HEADER - PHONES ONLY-->
+	<div class="w3-hide-large w3-hide-medium" style="margin-top:45px"></div>
+	
+	<!--CONTENT SECTIONS-->
+	<article id="home" class="w3-container tab" >
+		<header class="w3-container w3-large"><h4>New Casualty</h4></header>
+		<p>This website contains all the informations that you need for your life here at Atlantic College. Press the menu button in the top-leftcorner  (&nbsp;<img alt="menu" style="filter:invert(100%);" class="icimg/ts m" src="img/ts.png" />&nbsp;) to navigate in the different sections.</p>
+		<p id="browser">, and then select the option "add to homescreen". You will need to open the app once, and then it will always be available even when offline. If you encounter any problem with this, feel free to ask the <b>IT Rep</b> in your house, he'll always be willing to help you in any way. If that doesn't work (they are not obniscent), just go to the <b>IT Office</b> in the science block, and the'll find the solution to your problems.</p>
+		<p> Now I'll write a bit of bulls**t just to test the page, anyways i relly feqjew fbsdn nf few nf fj cdbwfe asfbeaf bg bskfb esbkhdb esbfe casfbiwl few fblb albfe flbfef ceh albfel rfbc lafbleb ferfblf blae rfbac erlfbe alf lebfl </p>
+	</article>
+	
+	<hr class=" w3-hide-small" />
+	
+	<article id="uncontious_breathing" class="w3-container tab w3-hide-small">
+		<header class="w3-container w3-xlarge"><h4>Uncontious Breathing Casualty</h4></header>
+		<div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Response P or U</b><br/>Casualty breathing</p>
+    </div>
+    <div class="">
+      <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge box_left">
+        <p>Maintain airway using<br/><b>JAW THRUST</b><br/>Prepare suction</p>
+      </div>
+      <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge box_right">
+        <p>Maintain airway using<br/><b>HEAD TILT</b><br/>Prepare suction</p>
+      </div>
+    </div>
+    <div class="">
+      <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge box_left">
+        <p>Attempt plastic airway<br/><b>GIVE OXYGEN @15 l/m</b><br/>via free flow mask</p>
+      </div>
+      <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge box_right">
+          <p>Attempt plastic airway<br/><b>GIVE OXYGEN @15 l/m</b><br/>via free flow mask</p>
+      </div>
+    </div>
+    <div class="">
+      <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge box_left">
+        <p>Treat traumatic injuries<br/>Keep warm with blanket</p>
+      </div>
+      <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge box_right">
+          <p>Place in recovery position<br/>Keep warm with blanket</p>
+      </div>
+    </div>
+    <div class="">
+      <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge box_left">
+        <p>Monitor and rapidly evacuate</p>
+      </div>
+      <div></div>
+      <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge box_right">
+        <p>Consider use of glucose gel. Monitor and rapidly evacuate</p>
+      </div>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+    <div class="notes">
+      <p class="w3-text-red">If at any point you cannot mantain te airway in an injured casualty - choose life over limb and use graduated head tilt
+        or the recovery position.</p>
+      <p>Place <font class="w3-text-red">pregnant</font> casualties on their <font class="w3-text-red">left</font> side.<br/>
+        Transport slightly <font class="w3-text-red">head down</font> except:<br/>
+        Transport <font class="w3-text-red">head up</font> if head or brain injury.<br/>
+        Transport <font class="w3-text-red">level</font> if diving illness related or drowned</p>
+    </div>
+  </article>
+	
+	<hr class=" w3-hide-small" />
+
+	<article id="resuscitation" class="w3-container tab w3-hide-small">
+		<header class="w3-container w3-xlarge"><h4>Resuscitation</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Response U, Breathing rate 0-6, Pale/Blue colour</b></p>
+    </div>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-black">
+          <span class="w3-tag w3-white w3-text-red">BIG SICK</span>
+          BREATHING 6 PER MIN - VENTILATORY SUPPORT
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p><b>INSERT PLASTIC AIRWAY</b><br/>Prepare suction</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p><b>ASSIST BREATHING</b><br/><b>GIVE OXYGEN @15 l/m</b><br/>via BVM / pocket mask</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p><b>3</b> seconds after casualty's breath, give <b>1</b> breath</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p>Continue assisting breathing</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If casualty's breath become more than <b>10</b> seconds apart commence CPR</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If available, prepare AED for potential use</p>
+        </div>
+        <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+        <div class="notes">
+          <p>Transport slightly <font class="w3-text-red">head down</font> except:<br/>
+            Transport <font class="w3-text-red">level</font> if diving illness related or drowned<br/>
+            Transport <font class="w3-text-red">head up</font> if head or brain injury.<br/>
+            Remove chest seal when using BVM<br/>
+            Always attempt CPR unless submersion time is more than 90 minutes, casualty is decomposed or is a victim of a non-survivable
+            trauma non-survivable</p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black"><span class="w3-tag w3-white w3-text-red">BIG SICK</span>NO BREATHING - CPR</div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p><b>INSERT PLASTIC AIRWAY</b><br/>Prepare suction</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>For child casualties, or adult casualties suffering from lack of oxygen, give <b>5</b> breaths.<br/>
+            <b>GIVE OXYGEN @15 l/m</b><br/>via BVM / pocket mask</p>
+       </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Adult: <b>30</b> compressions<br/>Child: <b>15</b> compressions<br/>At a rate: <b>100-120</b> per minute</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Give <b>2</b> breaths<br/><b>GIVE OXYGEN @15 l/m</b><br/>via BVM / pocket mask</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Continue compressions<br/>Adult-<b>30</b> / Child-<b>15</b><br/>to <b>2</b> breaths, only stopping if
+            shows obvious signs of life</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If available, connect AED as soon as possible and follow AED prompts. If possible raise casualty's feet</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If casualty recovers keep them on their back if possible</p>
+        </div>
+      </div>
+    </div>
+  </article>
+	
+	<hr class=" w3-hide-small" />
+	
+	<article id="external_bleeding" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>External Bleeding</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pale, Cold, Response V, P, U</b></p>
+    </div>
+    <p class="w3-text-red">Keep injured casualties warm and handle gently</p>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-black">EXTERNAL BLEED</div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Sit or lie casualty down<br/>Expose and examine wound</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p>Apply direct pressure to site and elevate if possible</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Apply trauma dressing</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+              24 hours</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+            @15 l/min via free flow mask</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If dressing bleeds through <b>SLOWLY</b> use windlass technique</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If bleeding not controlled, treat as <b>Life Threatening Bleed</b></p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If casualty goes unconscious maintain airway <span class="w3-tag w3-white">CARD 1</span></p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black">LIFE THREATENING BLEED</div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Apply immediate direct or indirect pressure</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>For limb bleeds use torniquet</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+            <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+              24 hours</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+            @15 l/min via free flow mask</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p><b>DO NOT</b> release torniquet</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Note torniquet application time on cards / torniquet / head</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Attempt to get casualty to hospital in under 2 hours</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If casualty goes uncontious maintain airway <span class="w3-tag w3-white">CARD 1</span></p>
+        </div>
+      </div>
+      <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Do not pull out embedded objects. Pad around objects or open fractures. Pack deep holes with dressings, then apply
+          pressure. <br/>
+          If limb is <font class="w3-text-red">crushed</font> for more than 15 minutes and evacuation is necessary, apply torniquet
+          just prior to release</p>
+      </div>
+    </div>
+	</article>
+	
+	<hr class=" w3-hide-small" />
+
+  <article id="internal_bleeding" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Internal Bleeding</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pale, Cold, Response V, P, U,
+        Bruising, Swelling, Hardening in the abdomen</b></p>
+    </div>
+    <p class="w3-text-red">Keep injured casualties warm and handle gently</p>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Exhamine 4 possible locations:<br/>CHEST / ABDOMEN / PELVIS OR LIMB</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p>Lie casualty HEAD DOWN<br/>Raise feet if possible</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Insulate and keep warm</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Monitor and rapidly evacuate <b>SLIGHTLY HEAD DOWN</b></p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="fractures" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Fractures</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pain, Pale, Swelling</b></p>
+    </div>
+    <p class="w3-text-red">Keep injured casualties warm and handle gently</p>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-black">CLOSED FRACTURES</div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Remove watches / jewellery from affected limb</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+              24 hours</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+            @15 l/min via free flow mask</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Immobilise fracture using frac straps and splints.<br/>For lower limbs use 6 frac straps including a pelvic strap</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Insulate and reassure<br/>Evacuate in stretcher of choice</p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black">OPEN FRACTURES</div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Control life treathening bleeding, if present</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Remove watches / jewellery from affected limb</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+            <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+              24 hours</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+            @15 l/min via free flow mask</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Apply dressing to wound, pack around bone ends but <b>DO NOT</b> push back in</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Immobilise fracture using frac straps and splints.<br/>For lower limbs use 6 frac straps including a pelvic strap</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Insulate and reassure<br/>Evacuate in stretcher of choice</p></p>
+        </div>
+      </div>
+      <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Transport <font class="w3-text-red">HEAD DOWN</font> if unconscious<br/>
+          Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="chest_injuries" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Chest Injuries</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pain, Pale, Deformity, Wounds</b></p>
+    </div>
+    <p class="w3-text-red">NEVER GIVE ENTONOX</p>
+    <p class="w3-text-red">Keep injured casualties warm and handle gently</p>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-black">PENETRATING INJURY</div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b> @15 l/min via free flow mask</p></p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+            <p>Pad around embedded objects<br/><b>DO NOT PULL OUT</b></p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Seal any holes in chest with trauma dressing<br/><b>BUT BREAK SEAL IF CASUALTY WORSENS</b></p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If conscious transport casualty in a sitting position leaning towards the injured side</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If unconscious lie casualty on their side, injured side down <b>UNLESS</b> embedded object</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Apply dressing to any additional wounds and apply pressure</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Monitor closely and evacuate in stretcher of choice</p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black">BLUNT IMPACT</div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b> @15 l/min via free flow mask</p></p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If conscious transport casualty in a sitting position leaning towards the injured side</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>If unconscious lie casualty on their side, injured side down</p>
+        </div>
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <p>Monitor closely and evacuate in stretcher of choice</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>If <span class="w3-tag w3-white w3-text-red">unconscious</span> <b>TRANSPORT SLIGHTLY HEAD DOWN</b></p>
+        </div>
+        <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+        <div class="notes">
+          <p>Wound size does not equal severity<br/>
+            Remove chest seal when using BVM<br/>
+            Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+            Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+        </div>
+    </div>
+      </div>
+    </div>
+  </article>
+  <article id="facial_burns" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Facial Burns</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pain, Pale, Burnt hair</b></p>
+    </div>
+    <p class="w3-text-red">If chemical burn, flush with water and seek medical advice via radio</p>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Suspect airway swelling</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>If no entonox available and <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Cool facial burns for at least 10 minutes</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>If wheezing give <b>2 puffs SALBUTAMOL INHALER</b> via spacer</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Dress facial burns if possible and if necessary cool for a further <b>10</b> minutes</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p><b>Monitor</b> and if required follow by <b>2 puffs</b> every <b>2</b> minutes to a maximum of <b>10 puffs</b>
+        in <b>10</b> minutes</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Rapidly evacuate, avoid lying conscious casualty down</p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Transport <font class="w3-text-red">HEAD DOWN</font> if unconscious<br/>
+          DO NOT burst blisters, or apply adhesive dressing<br/>
+          DO NOT remove clothing stuck to a burn<br/>
+          Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="body_burns" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Body Burns</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Pain, Pale, blistering, Charring</b></p>
+    </div>
+    <p class="w3-text-red">If chemical burn, flush with water and seek medical advice via radio</p>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Remove from cause<br/>Remove watches / jewellery from affected area</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Cool burn for at least <b>10</b> minutes</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> and no entonox available <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Dress burns with cling film or burn bags and if necessary cool for a further <b>10</b> minutes</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Monitor and rapidly evacuate</p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Transport <font class="w3-text-red">HEAD DOWN</font> if unconscious<br/>
+          DO NOT burst blisters, or apply adhesive dressing<br/>
+          DO NOT remove clothing stuck to a burn<br/>
+          Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="lying_spine" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Spinal injuries - Lying</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Numbness, Pain, Pins and needles,
+        Incontinence, Loss of movement</b></p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Reassure, approach from the front, ask not to move</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Hold head and neck in neutral alignment</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Watch for vomiting and clear airway as required</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours <b>BUT</b> be aware of masking pain</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> and no entonox available <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Consider if you have to move <span class="w3-tag w3-white w3-text-red">BIG SICK</span> /
+        <span class="w3-tag w3-white w3-text-red">DANGER</span><br/>
+        or can you stabilise in location <span class="w3-tag w3-white w3-text-green">LITTLE SICK</span></p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If moving casualty, size and apply collar as long as airway is not compromised by the collar</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Immobilise lower limbs, use 6 frac straps including a pelvic strap</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Log roll on to <b>Orange Basket stretcher / Spine board / PS1</b></p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Secure the casualty to the stretcher<br/>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span>
+        <b>TRANSPORT SLIGHTLY HEAD DOWN</b></p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="standing_spine" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Spinal injuries - Staying</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, Numbness, Pain, Pins and needles,
+        Incontinence, Loss of movement</b></p>
+    </div>
+    <p class="w3-text-red">DO NOT HOLD HEAD WHILST STANDING</p>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <div class="w3-panel w3-black">NO BOARD</div>
+          <p>Reassure and ask casualty to lie down on:<br/>Neil Robertson stretcher or PS1 for helo evacuation<br/>
+            Orange Basket stretcher for ALB evacuation<br/>PS1 for ILB evacuation</p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black">WITH BOARD</div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Reassure and ask casualty to stand still and look ahead</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Perform take down from standing</p>
+        </div>
+      </div>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Hold head and neck in neutral alignment</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Watch for vomiting and clear airway as required</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours <b>BUT</b> be aware of masking pain</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> and no entonox available <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Consider if you have to move <span class="w3-tag w3-white w3-text-red">BIG SICK</span> /
+        <span class="w3-tag w3-white w3-text-red">DANGER</span><br/>
+        or can you stabilise in location <span class="w3-tag w3-white w3-text-green">LITTLE SICK</span></p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If moving casualty, collar and secure to the stretcher<br/>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span>
+        <b>TRANSPORT SLIGHTLY HEAD DOWN</b></p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+  <article id="lying_head" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Head injuries - Lying</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, unconsciousness, Confusion, Memory loss,
+        Vomiting, Bruising, Bleeding</b></p>
+    </div>
+    <p class="w3-text-red">NEVER GIVE ENTONOX</p>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Reassure, approach from the front, ask not to move</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Hold head and neck in neutral alignment</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Watch for vomiting and clear airway as required</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> <b>GIVE OXYGEN</b> @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Dress head wound keeping head still</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Consider if you have to move <span class="w3-tag w3-white w3-text-red">BIG SICK</span> /
+        <span class="w3-tag w3-white w3-text-red">DANGER</span><br/>
+        or can you stabilise in location <span class="w3-tag w3-white w3-text-green">LITTLE SICK</span></p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>If moving casualty, size and apply collar as long as airway is not compromised by the collar</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Immobilise lower limbs, use 6 frac straps including a pelvic strap</p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Log roll on to <b>Orange Basket stretcher / Spine board / PS1</b></p>
+    </div>
+    <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+      <p>Secure the casualty to the stretcher, then <b>LOOSEN COLLAR - TRANSPORT SLIGHTLY HEAD UP</b></p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Be ready to treat unconsciousness using <font class="w3-text-red">Jaw Thrust</font>
+          <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate using <font class="w3-text-red">graduated Head Tilt</font>
+          <span class="w3-tag w3-black">SEE CARD 2</span><br/>
+          Casualties have the potential to fit<span class="w3-tag w3-black">SEE CARD 13</span>
+      </div>
+    </div>
+  </article>
+  <article id="standing_head" class="w3-container tab w3-hide-small">
+    <header class="w3-container w3-xlarge"><h4>Head injuries - Staying</h4></header>
+    <div class="w3-panel w3-pale-red w3-leftbar w3-rightbar w3-border-red w3-round-xlarge">
+      <p>Possible signs and symptoms:<br/><b>Breathing rate 30+, Cap refill 3+, unconsciousness, Confusion, Memory loss,
+        Vomiting, Bruising, Bleeding</b></p>
+    </div>
+    <p class="w3-text-red">NEVER GIVE ENTONOX</p>
+    <div class="w3-cell-row">
+      <div class="box_left">
+        <div class="w3-panel w3-pale-purple w3-leftbar w3-rightbar w3-border-purple w3-round-xlarge">
+          <div class="w3-panel w3-black">NO BOARD</div>
+          <p>Reassure and ask casualty to lie down on:<br/>Neil Robertson stretcher or PS1 for helo evacuation<br/>
+            Orange Basket stretcher for ALB evacuation<br/>PS1 for ILB evacuation</p>
+        </div>
+      </div>
+      <div class="box_right">
+        <div class="w3-panel w3-black">WITH BOARD</div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Reassure and ask casualty to stand still and look ahead</p>
+        </div>
+        <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+          <p>Perform take down from standing</p>
+        </div>
+      </div>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Hold head and neck in neutral alignment</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Watch for vomiting and clear airway as required</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+        <p><b>If in pain - GIVE ENTONOX UNLESS</b> the casualty has head or chest injuries or has been diving in the last
+          24 hours <b>BUT</b> be aware of masking pain</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span> and no entonox available <b>GIVE OXYGEN</b>
+        @15 l/min via free flow mask</p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>Consider if you have to move <span class="w3-tag w3-white w3-text-red">BIG SICK</span> /
+        <span class="w3-tag w3-white w3-text-red">DANGER</span><br/>
+        or can you stabilise in location <span class="w3-tag w3-white w3-text-green">LITTLE SICK</span></p>
+    </div>
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-rightbar w3-border-yellow w3-round-xlarge">
+      <p>If moving casualty, collar and secure to the stretcher<br/>If <span class="w3-tag w3-white w3-text-red">BIG SICK</span>
+        <b>TRANSPORT SLIGHTLY HEAD DOWN</b></p>
+    </div>
+    <div class="w3-panel w3-red" style="clear:both;"><h5>NOTES</h5></div>
+      <div class="notes">
+        <p>Be ready to treat unconsciousness <span class="w3-tag w3-black">SEE CARD 1</span><br/>
+          Be ready to resuscitate <span class="w3-tag w3-black">SEE CARD 2</span></p>
+      </div>
+    </div>
+  </article>
+</main>
+
+<!--FOOTER-->
+<footer id="footer" class="w3-container w3-padding-16 w3-text-white w3-uwc-green">
+	<summary><address><p><a href=""> Official WebSite</a></p></address></summary>
+	<p><time datetime="2017-05-16T14:52Z">Last update: 16/05/2017 14:51</time></p>
+</footer>
+
+<script type="text/javascript">
+
+	//EXPAND "CAMPUS" MENU OPTION
+	function AccFunction(idd) {
+		var x = document.getElementById(idd)
+		if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show"
+		} else {
+			x.className = x.className.replace(" w3-show", "")
+		}
+	}
+
+	//OPEN AND CLOSE SIDEBAR
+	function w3_change(what) {
+		document.getElementById("mySidebar").className = "w3-sidebar w3-bar-block w3-white w3-collapse slider slide-" + what
+		if (what == "in") {
+			document.getElementById("myOverlay").style.display = "block"
+		} else {
+			document.getElementById("myOverlay").style.display = "none"
+		}
+	}
+
+	//OPEN SECTION FROM SIDEBAR
+	function openTab(el, tabName) {
+		if (window.innerWidth < 601) {
+			var i
+			var x = document.getElementsByClassName("tab")
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none"
+			}
+			document.getElementById(tabName).style.cssText = "display: block !important"
+			w3_change("out")
+		}
+	}
+</script>
+
+</body>
+</html>
