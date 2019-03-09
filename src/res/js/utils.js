@@ -1,3 +1,5 @@
+//import Typed from typed.js
+
 $('#typed').ready(function(){
 	var typed = new Typed('#typed', {
 		stringsElement: '#typed-strings',

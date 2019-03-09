@@ -8,11 +8,8 @@ countt s xs | length xs < l = 0
 concS :: [(a,[b])] -> [(a,b)]
 concS ls = [(a,b) | (a,x) <- ls, b <- x]
 
-a :: Fractional a => a
-a = 1.0
-
-b :: Double
-b = 1.0
-
-c :: Float
-c = 1.0
+homerge :: Ord b => (a -> b) -> [a] -> [a] -> [a]
+homerge _ xs [] = xs
+homerge _ [] ys = ys
+homerge f (x:xs) (y:ys) | f x < f y = x : homerge f xs (y:ys)
+                        | otherwise = y : homerge f (x:xs) ys
