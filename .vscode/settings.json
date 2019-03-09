@@ -1,0 +1,65 @@
+{
+"files.exclude": {
+	"trial": true,
+	"dist": true,
+	".vscode": true,
+},
+
+"better-comments.tags": [{
+	"tag": "!",
+	"color": "#FF2D00",
+	"strikethrough": false,
+	"backgroundColor": "transparent"
+},{
+	"tag": "?",
+	"color": "#3498DB",
+	"strikethrough": false,
+	"backgroundColor": "transparent"
+},{
+	"tag": "//",
+	"color": "#474747",
+	"strikethrough": true,
+	"backgroundColor": "transparent"
+},{
+	"tag": "todo",
+	"color": "#FF8C00",
+	"strikethrough": false,
+	"backgroundColor": "transparent"
+},{
+	"tag": "*",
+	"color": "#98C379",
+	"strikethrough": false,
+	"backgroundColor": "transparent"
+}
+],
+"todohighlight.isEnable": true,
+"todohighlight.isCaseSensitive": true,
+"todohighlight.keywords": [
+	"DEBUG:",
+	"REVIEW:",
+	{
+		"text": "NOTE:",
+		"color": "#000",
+		"backgroundColor": "#fb0",
+	},
+	{
+		"text": "HACK:",
+		"color": "#000",
+		"backgroundColor": "#4b4",
+	},
+	{
+		"text": "TODO:",
+		"color": "#fff",
+		"backgroundColor": "#00f",
+		//other styling properties goes here ... 
+	}
+],
+"todohighlight.defaultStyle": {
+	"color": "red",
+	"backgroundColor": "#ffab00",
+	"cursor": "pointer",
+	"isWholeLine": false,
+},
+"todohighlight.maxFilesForSearch": 5120,
+"todohighlight.toggleURI": false
+}
