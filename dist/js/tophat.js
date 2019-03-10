@@ -1,0 +1,1 @@
+jQuery(document).ready(function(){var t=top_hat_settings.thn_text;alert(t)});

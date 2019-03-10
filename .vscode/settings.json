@@ -3,6 +3,7 @@
 	"trial": true,
 	"dist": true,
 	".vscode": true,
+	"node_modules": true,
 },
 
 "better-comments.tags": [{

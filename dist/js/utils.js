@@ -1,0 +1,1 @@
+$("#typed").ready(function(){new Typed("#typed",{stringsElement:"#typed-strings",typeSpeed:60,backSpeed:10,startDelay:1e3,loop:!0})}),$(window).scroll(function(){50<$(document).scrollTop()?$("nav").addClass("nav-scroll"):$("nav").removeClass("nav-scroll")});
