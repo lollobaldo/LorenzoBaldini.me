@@ -1,15 +1,28 @@
-countt :: String -> String -> Int
-countt s xs | length xs < l = 0
-            | take l xs == s = 1 + (countt s . drop l) xs
-            | otherwise = (countt s . drop 1) xs
-  where
-    l = length s
+data Tree a = NoData
+            | Data a
+            | Leaf (Tree a) (Tree a)
+            deriving (Show, Eq)
 
-concS :: [(a,[b])] -> [(a,b)]
-concS ls = [(a,b) | (a,x) <- ls, b <- x]
+data Direction = Left
+               | Right
+               deriving (Show, Eq)
 
-homerge :: Ord b => (a -> b) -> [a] -> [a] -> [a]
-homerge _ xs [] = xs
-homerge _ [] ys = ys
-homerge f (x:xs) (y:ys) | f x < f y = x : homerge f xs (y:ys)
-                        | otherwise = y : homerge f (x:xs) ys
+
+tree  = Leaf (Data 2) (Leaf (Data 5) NoData)
+tree2 = Leaf NoData NoData
+tree3 = Leaf NoData (Data 5)
+
+findPath :: Eq a => a -> Tree a -> [Direction]
+findPath _ NoData = []
+findPath a (Data x) = []
+findPath a (Leaf x y)
+    | isItHere a x = Main.Left  : findPath a x
+    | otherwise    = Main.Right : findPath a y
+
+isItHere :: Eq a => a -> Tree a -> Bool
+isItHere _ NoData = False
+isItHere a (Data x) = a == x
+isItHere a (Leaf x y) = isItHere a x || isItHere a y
+
+g _ _ [] _     = []
+g _ _ (x:xs) b = [_]
