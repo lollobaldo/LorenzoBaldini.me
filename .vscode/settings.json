@@ -6,6 +6,8 @@
 	"node_modules": true,
 },
 
+"liveServer.settings.root": "/dist",
+
 "better-comments.tags": [{
 	"tag": "!",
 	"color": "#FF2D00",

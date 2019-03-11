@@ -12,10 +12,6 @@ const	sass = require("gulp-sass"),
 		// concat = require('gulp-concat');
 		browserify = require('gulp-browserify');
 		rev = require('gulp-rev');
-		revReplace = require('gulp-rev-replace');
-		filter = require('gulp-filter');
-		useref = require('gulp-useref');
-		RevAll = require('gulp-rev-all');
 
 //var tsProject = ts.createProject("tsconfig.json");
 
@@ -26,61 +22,16 @@ const paths = {
 		dist: "dist/css"
 	},
 	ts: {
-		src: "src/ts/index.js",
+		src: "src/ts/**/index.js",
 		dev: "src/js",
 		dist: "dist/js"
 	},
 	html: {
-		src: "src/index.html",
+		src: "src/**/*.html",
 		dev: "src",
 		dist: "dist"
 	}
 };
-
-// function build(done) {
-// 	var jsFilter = filter("src/ts/**/*.js");
-// 	var cssFilter = filter("src/scss/**/*.scss");
-
-// 	return gulp.src("src/index.html")
-// 		.pipe(useref())
-// 		.pipe(jsFilter)
-// 		.pipe(browserify({
-// 			insertGlobals : false,
-// 			// debug : !gulp.env.production
-// 		}))
-// 		.pipe(uglify())
-// 		.pipe(jsFilter.restore)
-// 		.pipe(cssFilter)
-// 		.pipe(sass())
-// 		.pipe(postcss([autoprefixer(), cssnano()]))
-// 		.pipe(cssFilter.restore)
-// 		.pipe(rev())                // Rename *only* the concatenated files
-// 		.pipe(useref.restore)
-// 		.pipe(useref())
-// 		.pipe(revReplace())         // Substitute in new filenames
-// 		.pipe(gulp.dest('dist'));
-
-// 	// return gulp.src("src/index.html")
-// 	// 		.pipe(userefAssets)      // Concatenate with gulp-useref
-// 	// 		.pipe(jsFilter)
-// 	// 		.pipe(browserify({
-// 	// 			insertGlobals : false,
-// 	// 			// debug : !gulp.env.production
-// 	// 		}))
-// 	// 		.pipe(uglify())
-// 	// 		.pipe(jsFilter.restore())
-// 	// 		.pipe(cssFilter)
-// 	// 		.pipe(sass())
-// 	// 		.on("error", sass.logError)
-// 	// 		.pipe(postcss([autoprefixer(), cssnano()]))
-// 	// 		.pipe(cssFilter.restore())
-// 	// 		.pipe(rev())                // Rename the concatenated files 
-// 	// 		.pipe(userefAssets.restore())
-// 	// 		.pipe(useref())
-// 	// 		.pipe(revReplace())         // Substitute in new filenames 
-// 	// 		.pipe(gulp.dest('dist'));
-// 	// done();
-// }
 
 function build_css() {
 	return (gulp
@@ -88,10 +39,10 @@ function build_css() {
 			.pipe(sass())
 			.on("error", sass.logError)
 			.pipe(postcss([autoprefixer(), cssnano()]))
-			// .pipe(rev())
+			.pipe(rev())
 			.pipe(gulp.dest(paths.scss.dist))
-			// .pipe(rev.manifest())
-			// .pipe(gulp.dest("dist"))
+			.pipe(rev.manifest())
+			.pipe(gulp.dest("dist"))
 			.pipe(browserSync.stream())
 	);
 }
@@ -104,10 +55,9 @@ function build_js() {
 				// debug : !gulp.env.production
 			}))
 			.pipe(uglify())
-			// .pipe(rev())
 			.pipe(gulp.dest(paths.ts.dist))
-			// .pipe(rev.manifest())
-			// .pipe(gulp.dest("dist"))
+			.pipe(rev.manifest())
+			.pipe(gulp.dest("dist"))
 			);
 }
 
@@ -166,7 +116,7 @@ function watch(){
 		}
 		// proxy: "yourlocal.dev"
 	});
-	gulp.watch("src/scss/**/*.scss", dev_css);
+	gulp.watch(paths.scss.src, dev_css);
 	gulp.watch("src/**/*.html", reload);
 	gulp.watch("src/ts/**/*.js", dev_js);
 }
@@ -175,4 +125,3 @@ exports.css = dev_css;
 exports.js = dev_js;
 exports.watch = watch;
 exports.build = build;
-exports.default = build;

@@ -49,6 +49,18 @@ body, html {
 		width: 100%;
 		height: 100%;
 	}
+	/* Turn off parallax scrolling for tablets and phones */
+	@media screen and (max-width: 600px) {
+		min-height: 400px;
+		background-attachment: scroll;
+	}
+}
+
+.spannerWh {
+	margin: 64px auto;
+	padding: 64px;
+	background-color: #fff;
+	color: #000;
 }
 
 nav {
@@ -82,42 +94,33 @@ nav {
 // First spanner -- Landing page -- Image, full height
 .spanner-1 {
 	min-height: 100vh !important;
-	background-image: url('/images/intro-bg.jpg');
+	background-image: url('/images/spanner-1_1920x1055-c.jpeg');
 	background-color: rgba(0,0,0,0.5) !important;
 	color: #fff;
 }
 
 // Second spanner -- About me -- white
 .spanner-2 {
-	margin: 64px auto;
-	padding: 64px;
-	background-color: #fff;
-	color: #000;
+
 }
 
 // Third spanner -- Stats -- Image
 .spanner-3 {
 	min-height: 300px;
-	background-image: url('/images/austin-poon-728200-unsplash.jpg');
+	padding: 8rem 0px;
+	background-image: url('/images/spanner-3_1920x1200-c.jpeg');
 	color: #fff;
+}
 
-	div~div {
-
-	}
+.stats{
+	flex: 0 0 25%;
+	margin: auto;
+	max-width: 25%;
+	color: #fff;
+	&-counter {font-weight: bold;}
 }
 
 //Forth spanner -- Timeline -- White
 .spanner-4 {
-	margin: 64px auto;
-	padding: 64px;
-	background-color: #fff;
-	color: #000;
-}
 
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 600px) {
-	.spannerBg {
-		min-height: 400px;
-		background-attachment: scroll;
-	}
 }

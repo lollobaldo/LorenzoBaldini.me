@@ -1,1 +1,0 @@
-<meta http-equiv="refresh" content="0; URL='https://github.com/lollobaldo/Haskell-Flappy-Bird/blob/master/fb.exe?raw=true'" />
