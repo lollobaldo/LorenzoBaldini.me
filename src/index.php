@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-GB">
 <title>Lorenzo Baldini</title>
@@ -49,12 +48,12 @@
 			<div id="typed-strings">
 				<p>
 					<span class="p-text"
-					      style="font-family: 'Noto Serif', serif;">λ</span>
+						  style="font-family: 'Noto Serif', serif;">λ</span>
 					Haskell
 				</p>
-				<p><i class="p-text fab fa-python"></i>Python</p>
-				<p><i class="p-text fab fa-html5"></i>Frontend</p>
-				<p><i class="p-text fab fa-php"></i>Backend</p>
+				<p><i class="p-text fab fa-python"></i> Python</p>
+				<p><i class="p-text fab fa-html5"></i> Frontend</p>
+				<p><i class="p-text fab fa-php"></i> Backend</p>
 				<p class="w3-hide-small">
 					<i class="p-text fab fa-raspberry-pi"></i>
 					Raspberry Pi
@@ -116,7 +115,7 @@
 	<div class="w3-row w3-center w3-content">
 		<div class="w3-quarter stats">
 			<i class="fab fa-stack-overflow w3-xxxlarge"></i>
-			<h1 class="stats-counter">1100</h1>
+			<h1 class="stats-counter">1400</h1>
 			<h2>Stack<b>overflow</b></h2>
 		</div>
 		<div class="w3-quarter stats">
@@ -131,8 +130,8 @@
 		</div>
 		<div class="w3-quarter stats">
 			<i class="fab fa-python w3-xxxlarge"></i>
-			<h1 class="stats-counter">80</h1>
-			<h2>Idk what</b></h2>
+			<h1 class="stats-counter">100</h1>
+			<h2>Idk what yet</b></h2>
 		</div>
 	</div>
 </div>

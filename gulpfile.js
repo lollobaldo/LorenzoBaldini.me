@@ -30,8 +30,8 @@ const paths = {
 		dev: "src/js",
 		dist: "dist/js"
 	},
-	html: {
-		src: "src/index.html",
+	php: {
+		src: "src/index.php",
 		dev: "src",
 		dist: "dist"
 	}
@@ -111,18 +111,18 @@ function build_js() {
 			);
 }
 
-function build_html() {
+function build_php() {
 	return (gulp
-			.src(paths.html.src)
+			.src(paths.php.src)
 			.pipe(htmlmin({ collapseWhitespace: true }))
-			.pipe(gulp.dest(paths.html.dist))
+			.pipe(gulp.dest(paths.php.dist))
 			);
 }
 
 function build(done){
 	build_css();
 	build_js();
-	build_html();
+	build_php();
 	done();
 }
 
@@ -160,13 +160,16 @@ function reload(done) {
 function watch(){
 	dev_css();
 	dev_js();
-	browserSync.init({
-		server: {
-			baseDir: "src"
-		}
-		// proxy: "yourlocal.dev"
+	browserSync.init(null, {
+		// server: {
+		// 	baseDir: "src"
+		// },
+		proxy: "http://127.0.0.1:5000",
+		port: 5001,
+		files: ['*.html', '**/*.css', '**.*.js', '**.*.php']
 	});
 	gulp.watch("src/scss/**/*.scss", dev_css);
+	gulp.watch("src/**/*.php", reload);
 	gulp.watch("src/**/*.html", reload);
 	gulp.watch("src/ts/**/*.js", dev_js);
 }

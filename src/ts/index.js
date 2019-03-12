@@ -9,7 +9,7 @@ $('#typed').ready(function(){
 		// NOTE: lower is higher
 		typeSpeed: 60,
 		backSpeed: 10,
-		startDelay: 1000,
+		//startDelay: 1000,
 		loop: true
 	});
 });

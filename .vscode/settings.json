@@ -5,7 +5,9 @@
 	".vscode": true,
 	"node_modules": true,
 },
-
+"phpserver.relativePath": "src/",
+"phpserver.port": 5000,
+"phpserver.ip": "127.0.0.1",
 "liveServer.settings.root": "/dist",
 
 "better-comments.tags": [{
