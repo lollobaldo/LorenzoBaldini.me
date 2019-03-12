@@ -4,11 +4,10 @@
  * content -> display -> position -> size -> border -> background -> inside
  *
 */
-$primary-color: #ff9800;
-$primary-light: #ffcc80;
-$primary-vight: #ffe0b2;
 
+@import 'constants';
 @import 'timeline';
+@import 'progress-bars';
 
 * {
 	font-family: "Lato", sans-serif;
@@ -23,9 +22,6 @@ body, html {
 
 .p-border {border: 2px solid $primary-color !important;}
 .p-text {color: $primary-color;}
-
-.progress-bar-main{background-color: $primary-color;}
-.progress-bar-bg{background-color: $primary-vight;}
 
 .spannerBg {
 	position: relative;

@@ -93,6 +93,13 @@
   .right {
     left: 0%; } }
 
+.progress-bar-main {
+  height: 1em;
+  background-color: #ff9800; }
+
+.progress-bar-bg {
+  background-color: #ffe0b2; }
+
 * {
   font-family: "Lato", sans-serif; }
 
@@ -107,12 +114,6 @@ body, html {
 
 .p-text {
   color: #ff9800; }
-
-.progress-bar-main {
-  background-color: #ff9800; }
-
-.progress-bar-bg {
-  background-color: #ffe0b2; }
 
 .spannerBg {
   position: relative;
