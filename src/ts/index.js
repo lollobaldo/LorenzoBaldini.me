@@ -1,8 +1,44 @@
-// import Typed from typed.js
-
 var Typed = require('typed.js');
-//var Count = require('countup.js');
 
+// navbar change style on scroll
+$(window).scroll(function() {
+	if ($(document).scrollTop() > 50) {
+		$('nav').addClass('nav-scroll');
+	} else {
+		$('nav').removeClass('nav-scroll');
+	}
+});
+
+// animate scrolling menu - smooth scroll
+$(document).ready(function() {
+	$('a[href*=#]').bind('click', function(e) {
+		e.preventDefault(); // prevent hard jump, the default behavior
+		var target = $(this).attr("href"); // Set the target as variable
+		// perform animated scrolling by getting top-position of target-element and set it as scroll target
+		$('html, body').stop().animate({
+			scrollTop: $(target).offset().top
+		}, 600, function() {
+			location.hash = target; //attach the hash (#jumptarget) to the pageurl
+		});
+		return false;
+	});
+});
+
+// animate scrolling menu - follow user scrolling
+$(window).scroll(function() {
+	var scrollDistance = $(window).scrollTop();
+
+	// Assign active class to nav links while scolling
+	$('.page-section').each(function(i) {
+		if ($(this).position().top <= scrollDistance) {
+			$('.navigation a.active').removeClass('active');
+			$('.navigation a').eq(i).addClass('active');
+		}
+	});
+}).scroll();
+
+
+// typed effect on spanner 1
 $('#typed').ready(function(){
 	var typed = new Typed('#typed', {
 		stringsElement: '#typed-strings',
@@ -14,14 +50,8 @@ $('#typed').ready(function(){
 	});
 });
 
-$(window).scroll(function() {
-	if ($(document).scrollTop() > 50) {
-		$('nav').addClass('nav-scroll');
-	} else {
-		$('nav').removeClass('nav-scroll');
-	}
-});
 
+// animate counter on spanner 3
 $(function($, win) {
 	$.fn.inViewport = function(cb) {
 		return this.each(function(i,el){

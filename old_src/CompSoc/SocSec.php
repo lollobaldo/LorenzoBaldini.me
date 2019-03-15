@@ -137,7 +137,7 @@
 </div>
 
 <!-- Spanner 4: CV Timeline -->
-<div class="spannerWh spanner-4 w3-container w3-content" id="projects">
+<div class="spannerWh spanner-4 w3-container w3-content" id="cv">
 	<div class="timeline">
 		<div class="container left">
 			<div class="content">
@@ -184,7 +184,7 @@
 </div>
 
 <!-- Spanner 5: Blog -->
-<div class="spannerBg spanner-3 w3-card w3-container" id="pro">
+<div class="spannerBg spanner-3 w3-card w3-container">
 	<div class="w3-row w3-center w3-content">
 		<div class="w3-quarter stats">
 			<i class="fab fa-stack-overflow w3-xxxlarge"></i>

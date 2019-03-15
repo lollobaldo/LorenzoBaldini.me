@@ -5,7 +5,7 @@
 	".vscode": true,
 	"node_modules": true,
 },
-"phpserver.relativePath": "src/",
+"phpserver.relativePath": "prod/",
 "phpserver.port": 5000,
 "phpserver.ip": "127.0.0.1",
 "liveServer.settings.root": "/dist",

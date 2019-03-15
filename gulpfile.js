@@ -21,70 +21,28 @@ const	sass = require("gulp-sass"),
 
 const paths = {
 	scss: {
-		src: "src/scss/index.scss",
-		dev: "src/css",
+		src: "src/scss/**/*.scss",
+		main: "src/scss/*.scss",
+		prod: "prod/css",
 		dist: "dist/css"
 	},
 	ts: {
-		src: "src/ts/index.js",
-		dev: "src/js",
+		src: "src/ts/**/*.js",
+		main: "src/ts/*.js",
+		prod: "prod/js",
 		dist: "dist/js"
 	},
 	php: {
-		src: "src/index.php",
-		dev: "src",
+		src: "src/**/*.php",
+		main: "src/**/*.php",
+		prod: "prod",
 		dist: "dist"
 	}
 };
 
-// function build(done) {
-// 	var jsFilter = filter("src/ts/**/*.js");
-// 	var cssFilter = filter("src/scss/**/*.scss");
-
-// 	return gulp.src("src/index.html")
-// 		.pipe(useref())
-// 		.pipe(jsFilter)
-// 		.pipe(browserify({
-// 			insertGlobals : false,
-// 			// debug : !gulp.env.production
-// 		}))
-// 		.pipe(uglify())
-// 		.pipe(jsFilter.restore)
-// 		.pipe(cssFilter)
-// 		.pipe(sass())
-// 		.pipe(postcss([autoprefixer(), cssnano()]))
-// 		.pipe(cssFilter.restore)
-// 		.pipe(rev())                // Rename *only* the concatenated files
-// 		.pipe(useref.restore)
-// 		.pipe(useref())
-// 		.pipe(revReplace())         // Substitute in new filenames
-// 		.pipe(gulp.dest('dist'));
-
-// 	// return gulp.src("src/index.html")
-// 	// 		.pipe(userefAssets)      // Concatenate with gulp-useref
-// 	// 		.pipe(jsFilter)
-// 	// 		.pipe(browserify({
-// 	// 			insertGlobals : false,
-// 	// 			// debug : !gulp.env.production
-// 	// 		}))
-// 	// 		.pipe(uglify())
-// 	// 		.pipe(jsFilter.restore())
-// 	// 		.pipe(cssFilter)
-// 	// 		.pipe(sass())
-// 	// 		.on("error", sass.logError)
-// 	// 		.pipe(postcss([autoprefixer(), cssnano()]))
-// 	// 		.pipe(cssFilter.restore())
-// 	// 		.pipe(rev())                // Rename the concatenated files 
-// 	// 		.pipe(userefAssets.restore())
-// 	// 		.pipe(useref())
-// 	// 		.pipe(revReplace())         // Substitute in new filenames 
-// 	// 		.pipe(gulp.dest('dist'));
-// 	// done();
-// }
-
 function build_css() {
 	return (gulp
-			.src(paths.scss.src)
+			.src(paths.scss.main)
 			.pipe(sass())
 			.on("error", sass.logError)
 			.pipe(postcss([autoprefixer(), cssnano()]))
@@ -98,7 +56,7 @@ function build_css() {
 
 function build_js() {
 	return (gulp
-			.src(paths.ts.src)
+			.src(paths.ts.main)
 			.pipe(browserify({
 				insertGlobals : false,
 				// debug : !gulp.env.production
@@ -113,7 +71,7 @@ function build_js() {
 
 function build_php() {
 	return (gulp
-			.src(paths.php.src)
+			.src(paths.php.main)
 			.pipe(htmlmin({ collapseWhitespace: true }))
 			.pipe(gulp.dest(paths.php.dist))
 			);
@@ -126,30 +84,37 @@ function build(done){
 	done();
 }
 
-function dev_css() {
+function prod_css() {
 	return (gulp
-			.src(paths.scss.src)
+			.src(paths.scss.main)
 			//.pipe(sourcemaps.init())
 			.pipe(sass())
 			.on("error", sass.logError)
 			//.pipe(postcss([autoprefixer(), cssnano()]))
 			//.pipe(sourcemaps.write())
-			.pipe(gulp.dest(paths.scss.dev))
+			.pipe(gulp.dest(paths.scss.prod))
 			.pipe(browserSync.stream())
 	);
 }
 
-function dev_js() {
+function prod_js() {
 	return (gulp
-			.src(paths.ts.src)
+			.src(paths.ts.main)
 			.pipe(browserify({
 				insertGlobals : false,
 				// debug : !gulp.env.production
 			}))
 			.pipe(uglify())
-			.pipe(gulp.dest(paths.ts.dev))
+			.pipe(gulp.dest(paths.ts.prod))
 			.pipe(browserSync.stream())
 	);
+}
+
+function prod_php() {
+	return (gulp
+		.src(paths.php.src)
+		.pipe(gulp.dest(paths.php.prod))
+		);
 }
 
 function reload(done) {
@@ -158,24 +123,25 @@ function reload(done) {
 }
 
 function watch(){
-	dev_css();
-	dev_js();
+	prod_css();
+	prod_js();
+	prod_php();
 	browserSync.init(null, {
 		// server: {
 		// 	baseDir: "src"
 		// },
 		proxy: "http://127.0.0.1:5000",
 		port: 5001,
-		files: ['*.html', '**/*.css', '**.*.js', '**.*.php']
+		//files: ['*.html', '**/*.css', '**.*.js', '**.*.php']
 	});
-	gulp.watch("src/scss/**/*.scss", dev_css);
-	gulp.watch("src/**/*.php", reload);
-	gulp.watch("src/**/*.html", reload);
-	gulp.watch("src/ts/**/*.js", dev_js);
+	gulp.watch("src/scss/**/*.scss", prod_css);
+	gulp.watch("src/**/*.php", prod_php);
+	gulp.watch("prod/**/*.php", reload);
+	gulp.watch("src/ts/**/*.js", prod_js);
 }
 
-exports.css = dev_css;
-exports.js = dev_js;
+exports.css = prod_css;
+exports.js = prod_js;
 exports.watch = watch;
 exports.build = build;
 exports.default = build;
