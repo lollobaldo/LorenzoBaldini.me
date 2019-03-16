@@ -22,19 +22,19 @@
 
 <!-- Navbar (sit on top) -->
 <nav class="w3-top w3-bar w3-xlarge">
-	<a href="#home" class="w3-bar-item">Lorenzo Baldini</a>
+	<a href="#home" class="w3-bar-item active">Lorenzo Baldini</a>
 	<div class="w3-right">
 		<a href="#about"
 		   class="w3-bar-item w3-hide-medium w3-hide-small">About</a>
-		<a href="#CV"
-		   class="w3-bar-item w3-hide-medium w3-hide-small">CV</a>
+		<a href="#education"
+		   class="w3-bar-item w3-hide-medium w3-hide-small">Education</a>
 		<a href="#projects"
 		   class="w3-bar-item w3-hide-medium w3-hide-small">Projects</a>
 	</div>
 </nav>
 
 <!-- First Parallax Image with Logo Text -->
-<div class="spannerBg spanner-1 w3-display-container" id="home">
+<div class="page-section spannerBg spanner-1 w3-display-container" id="home">
 	<div class="w3-display-middle" style="white-space:nowrap;">
 		<div class="p-border w3-display-middle w3-padding-large w3-border
 		            w3-wide w3-text-white w3-center">
@@ -65,7 +65,8 @@
 </div>
 
 <!-- Second Area: About -->
-<div class="spannerWh spanner-2 w3-card w3-content w3-container" id="about">
+<div class="page-section spannerWh spanner-2 w3-card w3-content w3-container"
+     id="about">
 	<div class="w3-container w3-half">
 		<div class="w3-container w3-half">
 				<img src="/images/try_me_150x150.jpeg" alt="me" />
@@ -137,7 +138,8 @@
 </div>
 
 <!-- Spanner 4: CV Timeline -->
-<div class="spannerWh spanner-4 w3-container w3-content" id="projects">
+<div class="page-section spannerWh spanner-4 w3-container w3-content"
+     id="education">
 	<div class="timeline">
 		<div class="container left">
 			<div class="content">
@@ -184,7 +186,8 @@
 </div>
 
 <!-- Spanner 5: Blog -->
-<div class="spannerBg spanner-3 w3-card w3-container" id="pro">
+<div class="page-section spannerBg spanner-3 w3-card w3-container"
+     id="projects">
 	<div class="w3-row w3-center w3-content">
 		<div class="w3-quarter stats">
 			<i class="fab fa-stack-overflow w3-xxxlarge"></i>

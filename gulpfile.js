@@ -104,7 +104,6 @@ function prod_js() {
 				insertGlobals : false,
 				// debug : !gulp.env.production
 			}))
-			.pipe(uglify())
 			.pipe(gulp.dest(paths.ts.prod))
 			.pipe(browserSync.stream())
 	);

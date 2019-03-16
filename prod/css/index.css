@@ -160,6 +160,8 @@ nav {
     text-decoration: none; }
     nav a:hover {
       text-decoration: none; }
+    nav a.active {
+      background: linear-gradient(to right, transparent 0%, orange 0%, orange 50%, transparent 50%) left 16px bottom 0/100% 2px no-repeat, rgba(0, 0, 0, 0); }
 
 .nav-scroll {
   padding: 16px 20%;

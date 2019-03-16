@@ -76,6 +76,19 @@ nav {
 		&:hover {
 			text-decoration: none;
 		}
+
+		&.active {
+			background:
+			linear-gradient(
+				to right,
+					transparent 0%,
+					orange 0%,
+					orange 50%,
+					transparent 50%)
+				left 16px bottom 0 / 
+				100% 2px no-repeat,
+				rgba(0, 0, 0, 0)
+		}
 	}
 }
 
