@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="apple-mobile-web-app-title" content="Lorenzo Baldini">
+<meta name="Description" content="Lorenzo Baldini's personal webpage">
 
 <link href="icons/favicon.png" rel="icon">
 <link rel="apple-touch-icon" href="icons/big-favicon.png">
